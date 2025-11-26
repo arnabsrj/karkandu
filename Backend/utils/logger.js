@@ -48,9 +48,51 @@
 
 // export default logger;
 
-
 // utils/logger.js
 import { createLogger, format, transports } from 'winston';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
+
+// Fix __dirname in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Check if running on Vercel (serverless)
+const isVercel = Boolean(process.env.VERCEL);
+
+// Optional: create logs folder locally
+if (!isVercel) {
+  const logDir = path.join(__dirname, '../logs');
+  if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir, { recursive: true });
+  }
+}
+
+// Define transports
+const loggerTransports = [
+  new transports.Console({
+    format: format.combine(
+      format.colorize(),
+      format.simple()
+    ),
+  }),
+];
+
+if (!isVercel) {
+  // Add file transports only if NOT on Vercel
+  loggerTransports.push(
+    new transports.File({
+      filename: path.join(__dirname, '../logs/error.log'),
+      level: 'error',
+      format: format.json(),
+    }),
+    new transports.File({
+      filename: path.join(__dirname, '../logs/combined.log'),
+      format: format.json(),
+    })
+  );
+}
 
 const logger = createLogger({
   level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
@@ -61,18 +103,14 @@ const logger = createLogger({
       return `${timestamp} [${level.toUpperCase()}]: ${stack || message}`;
     })
   ),
-  transports: [
-    // Only console transport — safe for Vercel serverless
-    new transports.Console({
-      format: format.combine(
-        format.colorize(),
-        format.simple()
-      ),
-    }),
+  transports: loggerTransports,
+  // Exception & rejection handlers (console-only on Vercel)
+  exceptionHandlers: [
+    new transports.Console()
   ],
-  // REMOVE all file-based transports
-  // REMOVE exceptionHandlers and rejectionHandlers
+  rejectionHandlers: [
+    new transports.Console()
+  ],
 });
 
 export default logger;
-
