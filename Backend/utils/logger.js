@@ -1,4 +1,50 @@
-// utils/logger.js
+// // utils/logger.js
+// import { createLogger, format, transports } from 'winston';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
+
+// // Fix __dirname in ESM
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+// const logger = createLogger({
+//   level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+//   format: format.combine(
+//     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+//     format.errors({ stack: true }),
+//     format.printf(({ timestamp, level, message, stack }) => {
+//       return `${timestamp} [${level.toUpperCase()}]: ${stack || message}`;
+//     })
+//   ),
+//   transports: [
+//     // Console output
+//     new transports.Console({
+//       format: format.combine(
+//         format.colorize(),
+//         format.simple()
+//       ),
+//     }),
+
+//     // Error log file
+//     new transports.File({
+//       filename: path.join(__dirname, '../logs/error.log'),
+//       level: 'error',
+//       format: format.json(),
+//     }),
+
+//     // Combined log file
+//     new transports.File({
+//       filename: path.join(__dirname, '../logs/combined.log'),
+//       format: format.json(),
+//     }),
+//   ],
+//   exceptionHandlers: [
+//     new transports.File({ filename: path.join(__dirname, '../logs/exceptions.log') }),
+//   ],
+//   rejectionHandlers: [
+//     new transports.File({ filename: path.join(__dirname, '../logs/rejections.log') }),
+//   ],
+// });
 import { createLogger, format, transports } from 'winston';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -8,23 +54,27 @@ import fs from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 1. CHANGE: Use NODE_ENV to detect if we are in production (Vercel)
-// If NODE_ENV is 'production', we assume we are on the server (Vercel)
-const isProduction = process.env.NODE_ENV === 'production';
+// KEY CHANGE: explicitly check for 'development'. 
+// If NODE_ENV is anything else (production, undefined, etc.), we assume we are on Vercel/Server.
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 // Path for logs if running locally
 const logsDir = path.join(__dirname, '../logs');
 
-// 2. CHANGE: Only create directory if we are NOT in production
-if (!isProduction) {
+// Only create the logs folder if we are EXPLICITLY in development
+if (isDevelopment) {
   if (!fs.existsSync(logsDir)) {
-    fs.mkdirSync(logsDir, { recursive: true });
+    try {
+      fs.mkdirSync(logsDir, { recursive: true });
+    } catch (err) {
+      console.error('Failed to create logs directory:', err);
+    }
   }
 }
 
 // Create Winston logger
 const logger = createLogger({
-  level: isProduction ? 'info' : 'debug',
+  level: isDevelopment ? 'debug' : 'info',
   format: format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     format.errors({ stack: true }),
@@ -33,13 +83,13 @@ const logger = createLogger({
     })
   ),
   transports: [
-    // Always log to console (Required for Vercel Logs)
+    // Always log to console (This works everywhere)
     new transports.Console({
       format: format.combine(format.colorize(), format.simple()),
     }),
 
-    // 3. CHANGE: Only add File transports if NOT in production
-    ...(!isProduction
+    // Only add File transports if we are EXPLICITLY in development
+    ...(isDevelopment
       ? [
           new transports.File({
             filename: path.join(logsDir, 'error.log'),
@@ -55,12 +105,14 @@ const logger = createLogger({
   ],
   // Exception and rejection handlers
   exceptionHandlers: [
-    isProduction
+    // Use Console for production/Vercel
+    !isDevelopment
       ? new transports.Console()
       : new transports.File({ filename: path.join(logsDir, 'exceptions.log') }),
   ],
   rejectionHandlers: [
-    isProduction
+    // Use Console for production/Vercel
+    !isDevelopment
       ? new transports.Console()
       : new transports.File({ filename: path.join(logsDir, 'rejections.log') }),
   ],
