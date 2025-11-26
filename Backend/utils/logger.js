@@ -47,7 +47,6 @@
 // });
 
 // export default logger;
-
 // utils/logger.js
 import { createLogger, format, transports } from 'winston';
 import path from 'path';
@@ -58,42 +57,20 @@ import fs from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Check if running on Vercel (serverless)
-const isVercel = Boolean(process.env.VERCEL);
+// Detect if we are running in Vercel serverless environment
+const isServerless = !!process.env.VERCEL;
 
-// Optional: create logs folder locally
-if (!isVercel) {
-  const logDir = path.join(__dirname, '../logs');
-  if (!fs.existsSync(logDir)) {
-    fs.mkdirSync(logDir, { recursive: true });
+// Path for logs if running locally
+const logsDir = path.join(__dirname, '../logs');
+
+// Ensure local logs folder exists
+if (!isServerless) {
+  if (!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir, { recursive: true });
   }
 }
 
-// Define transports
-const loggerTransports = [
-  new transports.Console({
-    format: format.combine(
-      format.colorize(),
-      format.simple()
-    ),
-  }),
-];
-
-if (!isVercel) {
-  // Add file transports only if NOT on Vercel
-  loggerTransports.push(
-    new transports.File({
-      filename: path.join(__dirname, '../logs/error.log'),
-      level: 'error',
-      format: format.json(),
-    }),
-    new transports.File({
-      filename: path.join(__dirname, '../logs/combined.log'),
-      format: format.json(),
-    })
-  );
-}
-
+// Create Winston logger
 const logger = createLogger({
   level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
   format: format.combine(
@@ -103,13 +80,37 @@ const logger = createLogger({
       return `${timestamp} [${level.toUpperCase()}]: ${stack || message}`;
     })
   ),
-  transports: loggerTransports,
-  // Exception & rejection handlers (console-only on Vercel)
+  transports: [
+    // Always log to console
+    new transports.Console({
+      format: format.combine(format.colorize(), format.simple()),
+    }),
+
+    // Only log to files if running locally
+    ...(!isServerless
+      ? [
+          new transports.File({
+            filename: path.join(logsDir, 'error.log'),
+            level: 'error',
+            format: format.json(),
+          }),
+          new transports.File({
+            filename: path.join(logsDir, 'combined.log'),
+            format: format.json(),
+          }),
+        ]
+      : []),
+  ],
+  // Exception and rejection handlers
   exceptionHandlers: [
-    new transports.Console()
+    isServerless
+      ? new transports.Console()
+      : new transports.File({ filename: path.join(logsDir, 'exceptions.log') }),
   ],
   rejectionHandlers: [
-    new transports.Console()
+    isServerless
+      ? new transports.Console()
+      : new transports.File({ filename: path.join(logsDir, 'rejections.log') }),
   ],
 });
 
