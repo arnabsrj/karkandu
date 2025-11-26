@@ -45,6 +45,7 @@
 //     new transports.File({ filename: path.join(__dirname, '../logs/rejections.log') }),
 //   ],
 // });
+
 import { createLogger, format, transports } from 'winston';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -54,27 +55,54 @@ import fs from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// KEY CHANGE: explicitly check for 'development'. 
-// If NODE_ENV is anything else (production, undefined, etc.), we assume we are on Vercel/Server.
-const isDevelopment = process.env.NODE_ENV === 'development';
-
-// Path for logs if running locally
+// Path for logs
 const logsDir = path.join(__dirname, '../logs');
 
-// Only create the logs folder if we are EXPLICITLY in development
-if (isDevelopment) {
-  if (!fs.existsSync(logsDir)) {
-    try {
+// --- ROBUST FILESYSTEM CHECK ---
+// We try to create the directory. If it fails (ReadOnly FS), we disable file logging.
+let canWriteToDisk = false;
+
+try {
+  // If we are NOT in production, try to setup logs
+  if (process.env.NODE_ENV !== 'production') {
+    if (!fs.existsSync(logsDir)) {
       fs.mkdirSync(logsDir, { recursive: true });
-    } catch (err) {
-      console.error('Failed to create logs directory:', err);
     }
+    // If we reached here without error, we have write permissions
+    canWriteToDisk = true;
   }
+} catch (error) {
+  // If we catch an error, we are in a Read-Only environment (like Vercel)
+  console.warn("Read-only file system detected. File logging disabled.");
+  canWriteToDisk = false;
+}
+
+// Define the transports based on the check above
+const activeTransports = [
+  // Always log to console
+  new transports.Console({
+    format: format.combine(format.colorize(), format.simple()),
+  }),
+];
+
+// Only add File transports if the disk check passed
+if (canWriteToDisk) {
+  activeTransports.push(
+    new transports.File({
+      filename: path.join(logsDir, 'error.log'),
+      level: 'error',
+      format: format.json(),
+    }),
+    new transports.File({
+      filename: path.join(logsDir, 'combined.log'),
+      format: format.json(),
+    })
+  );
 }
 
 // Create Winston logger
 const logger = createLogger({
-  level: isDevelopment ? 'debug' : 'info',
+  level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
   format: format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     format.errors({ stack: true }),
@@ -82,40 +110,14 @@ const logger = createLogger({
       return `${timestamp} [${level.toUpperCase()}]: ${stack || message}`;
     })
   ),
-  transports: [
-    // Always log to console (This works everywhere)
-    new transports.Console({
-      format: format.combine(format.colorize(), format.simple()),
-    }),
-
-    // Only add File transports if we are EXPLICITLY in development
-    ...(isDevelopment
-      ? [
-          new transports.File({
-            filename: path.join(logsDir, 'error.log'),
-            level: 'error',
-            format: format.json(),
-          }),
-          new transports.File({
-            filename: path.join(logsDir, 'combined.log'),
-            format: format.json(),
-          }),
-        ]
-      : []),
-  ],
-  // Exception and rejection handlers
-  exceptionHandlers: [
-    // Use Console for production/Vercel
-    !isDevelopment
-      ? new transports.Console()
-      : new transports.File({ filename: path.join(logsDir, 'exceptions.log') }),
-  ],
-  rejectionHandlers: [
-    // Use Console for production/Vercel
-    !isDevelopment
-      ? new transports.Console()
-      : new transports.File({ filename: path.join(logsDir, 'rejections.log') }),
-  ],
+  transports: activeTransports,
+  // Only use file exception handlers if we can write to disk
+  exceptionHandlers: canWriteToDisk
+    ? [new transports.File({ filename: path.join(logsDir, 'exceptions.log') })]
+    : [],
+  rejectionHandlers: canWriteToDisk
+    ? [new transports.File({ filename: path.join(logsDir, 'rejections.log') })]
+    : [],
 });
 
 export default logger;
