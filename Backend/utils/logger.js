@@ -62,7 +62,7 @@ const logger = createLogger({
     })
   ),
   transports: [
-    // Console output only (safe for Vercel)
+    // Only console transport — safe for Vercel serverless
     new transports.Console({
       format: format.combine(
         format.colorize(),
@@ -70,7 +70,9 @@ const logger = createLogger({
       ),
     }),
   ],
-  // Remove file-based exception/rejection handlers
+  // REMOVE all file-based transports
+  // REMOVE exceptionHandlers and rejectionHandlers
 });
 
 export default logger;
+
