@@ -1,0 +1,244 @@
+.contact-page {
+  background: #faf6f0;
+  min-height: 100vh;
+  font-family: 'Georgia', serif;
+}
+
+.contact-hero {
+  background: linear-gradient(rgba(139,111,71,0.1), #f5f0e6), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2670');
+  background-size: cover;
+  background-position: center;
+  padding: 6rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  color: #8B6F47;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.3rem;
+  color: #a0896d;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.floating-leaf {
+  position: absolute;
+  font-size: 8rem;
+  color: rgba(139,111,71,0.08);
+  bottom: -2rem;
+  right: -2rem;
+  animation: float 15s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-30px) rotate(10deg); }
+}
+
+.contact-container {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 4rem;
+}
+
+.contact-info {
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(139,111,71,0.1);
+}
+
+.contact-info h2 {
+  color: #8B6F47;
+  margin-bottom: 2rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.info-item .icon {
+  font-size: 1.8rem;
+  color: #C9B59C;
+}
+
+.info-item h4 {
+  margin: 0;
+  color: #8B6F47;
+}
+
+.info-item p {
+  margin: 0.3rem 0 0;
+  color: #666;
+}
+
+.contact-form-card {
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(139,111,71,0.1);
+}
+
+.contact-form-card h2 {
+  color: #8B6F47;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e8dcc9;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: #fdfbf7;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #C9B59C;
+  background: white;
+}
+
+.submit-btn {
+  background: #8B6F47;
+  color: white;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #7a5f3a;
+  transform: translateY(-3px);
+}
+
+.success-msg {
+  background: #e6f7ed;
+  color: #2e8b57;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.error-msg {
+  background: #ffe6e6;
+  color: #c41c1c;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+  }
+  .hero-content h1 { font-size: 2.8rem; }
+}
+
+
+/* Add to your Contact.css */
+
+.login-request-section {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+}
+
+.login-request-card {
+  background: linear-gradient(135deg, #fffaf0 0%, #fdf4e6 100%);
+  border: 3px solid #C9B59C;
+  border-radius: 24px;
+  padding: 3rem;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(139,111,71,0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-request-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(201,181,156,0.1) 0%, transparent 70%);
+  animation: gentleGlow 20s infinite;
+}
+
+@keyframes gentleGlow {
+  0%, 100% { transform: translate(10%, 10%); }
+  50% { transform: translate(-10%, -10%); }
+}
+
+.login-icon {
+  font-size: 4rem;
+  color: #8B6F47;
+  margin-bottom: 1.5rem;
+  animation: float 6s ease-in-out infinite;
+}
+
+.login-request-card h3 {
+  font-size: 2rem;
+  color: #8B6F47;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+}
+
+.login-request-card p {
+  font-size: 1.2rem;
+  line-height: 2;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.blessing {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(201,181,156,0.15);
+  border-radius: 16px;
+  color: #8B6F47;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .login-request-card {
+    padding: 2rem;
+  }
+  .login-request-card h3 {
+    font-size: 1.6rem;
+  }
+  .login-icon {
+    font-size: 3rem;
+  }
+}

@@ -1,0 +1,82 @@
+/* src/layouts/AdminLayout.css */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f0e6;
+  font-family: 'Georgia', serif;
+}
+
+.admin-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-header {
+  background: linear-gradient(135deg, #8B6F47 0%, #6B5438 100%);
+  color: #EFE9E3;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 12px rgba(139, 111, 71, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 900;
+}
+
+.admin-title {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #C9B59C;
+}
+
+.admin-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-greeting {
+  font-style: italic;
+  color: #EFE9E3;
+  font-size: 1rem;
+}
+
+.admin-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Loader */
+.admin-loader {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #efe9e3;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+  
+  .admin-header {
+    padding: 1rem 1.5rem;
+  }
+  
+  .admin-title {
+    font-size: 1.5rem;
+  }
+  
+  .admin-content {
+    padding: 1.5rem 1rem;
+  }
+}

@@ -1,0 +1,296 @@
+/* src/pages/admin/Comments/AdminComments.css */
+.admin-comments-page {
+  padding: 2rem;
+  background: #faf6f0;
+  min-height: 100vh;
+}
+
+.page-title {
+  font-size: 2.4rem;
+  color: #8B6F47;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.total-count {
+  text-align: center;
+  color: #a0896d;
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+}
+
+.comments-list {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.admin-comment-item {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(139,111,71,0.12);
+  border: 1px solid #f0e6d9;
+  transition: all 0.3s ease;
+}
+
+.admin-comment-item:hover {
+  box-shadow: 0 18px 45px rgba(139,111,71,0.18);
+  transform: translateY(-5px);
+}
+
+.is-reply {
+  background: #fdf8f3;
+  border-left: 5px solid #C9B59C;
+}
+
+.comment-card {
+  padding: 1.8rem;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.author-info img,
+.avatar-placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #C9B59C;
+}
+
+.avatar-placeholder {
+  color: #C9B59C;
+  background: #f0e6d9;
+  font-size: 48px;
+}
+
+.author-name {
+  color: #8B6F47;
+  font-size: 1.1rem;
+}
+
+.comment-date {
+  color: #a0896d;
+  font-size: 0.9rem;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.like-count {
+  color: #e53e3e;
+  font-weight: 600;
+}
+
+.delete-btn {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+  background: #c53030;
+  transform: scale(1.12);
+}
+
+.comment-body {
+  background: #fdfbf7;
+  padding: 1.3rem;
+  border-radius: 14px;
+  margin: 1rem 0;
+  line-height: 1.8;
+  color: #2d1f12;
+  border-left: 4px solid #8B6F47;
+  font-size: 1.02rem;
+}
+
+.replies-section {
+  margin-top: 1rem;
+}
+
+.view-replies-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: transparent;
+  border: 2px solid #C9B59C;
+  color: #8B6F47;
+  padding: 0.6rem 1.3rem;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-replies-btn:hover {
+  background: #C9B59C;
+  color: white;
+  gap: 1rem;
+}
+
+.replies-container {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #e8dcc9;
+}
+
+.no-replies {
+  color: #a0896d;
+  font-style: italic;
+  text-align: center;
+  padding: 1.5rem;
+  background: #f8f4f0;
+  border-radius: 12px;
+  margin: 1rem 0;
+}
+
+.no-comments {
+  text-align: center;
+  padding: 4rem;
+  color: #a0896d;
+  font-size: 1.3rem;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .comment-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .comment-actions {
+    margin-top: 0.5rem;
+  }
+  .view-replies-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Pagination - Sacred Golden Style */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0 2rem;
+  flex-wrap: wrap;
+}
+
+.page-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: white;
+  color: #8B6F47;
+  border: 2px solid #C9B59C;
+  padding: 0.8rem 1.6rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.page-btn:hover:not(:disabled) {
+  background: #C9B59C;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(139,111,71,0.25);
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.page-number {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: white;
+  color: #8B6F47;
+  border: 2px solid #C9B59C;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-number:hover {
+  background: #C9B59C;
+  color: white;
+  transform: scale(1.1);
+}
+
+.page-number.active {
+  background: linear-gradient(135deg, #8B6F47, #A67C52);
+  color: white;
+  border-color: transparent;
+  transform: scale(1.15);
+  box-shadow: 0 8px 20px rgba(139,111,71,0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pagination-container {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .page-btn {
+    width: 80%;
+    justify-content: center;
+  }
+}
+
+.comment-context-title {
+  background-color: #f0f7ff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  font-weight: 500;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.comment-context-title:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

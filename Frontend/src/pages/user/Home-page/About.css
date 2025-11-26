@@ -1,0 +1,190 @@
+/* src/pages/user/About/About.css */
+.about-page {
+  background: #faf6f0;
+  color: #4a4a4a;
+  line-height: 1.8;
+  font-family: 'Georgia', serif;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Hero */
+.about-hero {
+  position: relative;
+  background: linear-gradient(to bottom, #f5f0e6, #faf6f0);
+  padding: 6rem 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-title {
+  font-size: 4.5rem;
+  color: #8B6F47;
+  margin: 0;
+  font-weight: 300;
+  letter-spacing: 4px;
+}
+
+.hero-subtitle {
+  font-size: 1.4rem;
+  color: #a0896d;
+  max-width: 700px;
+  margin: 1.5rem auto;
+  font-style: italic;
+}
+
+.hero-decoration .leaf {
+  position: absolute;
+  font-size: 6rem;
+  color: rgba(139, 111, 71, 0.08);
+  animation: float 20s infinite ease-in-out;
+}
+
+.leaf.left  { top: 20%; left: 5%; transform: rotate(20deg); }
+.leaf.right { bottom: 15%; right: 8%; transform: rotate(-40deg); }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-30px) rotate(10deg); }
+}
+
+/* Sections */
+.about-section,
+.values-section,
+.invitation-section {
+  padding: 5rem 0;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #8B6F47;
+  margin-bottom: 3rem;
+}
+
+/* Intro Grid */
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.intro-text h2 {
+  font-size: 2.2rem;
+  color: #8B6F47;
+  margin-bottom: 1.5rem;
+}
+
+.intro-image {
+  text-align: center;
+}
+
+.image-placeholder {
+  background: #f0e6d9;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0 15px 40px rgba(139, 111, 71, 0.15);
+}
+
+.feather-icon {
+  font-size: 6rem;
+  color: #C9B59C;
+}
+
+/* Values */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.value-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(139, 111, 71, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-10px);
+}
+
+.value-icon {
+  font-size: 2.5rem;
+  color: #C9B59C;
+  margin-bottom: 1rem;
+}
+
+.value-card h3 {
+  color: #8B6F47;
+  margin-bottom: 0.8rem;
+}
+
+/* Invitation */
+.invitation-section {
+  background: #8B6F47;
+  color: white;
+  text-align: center;
+}
+
+.invitation-card {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.invitation-card h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.invitation-card p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+}
+
+.cta-button {
+  display: inline-block;
+  background: white;
+  color: #8B6F47;
+  padding: 0.9rem 2.2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.cta-button:hover {
+  background: #C9B59C;
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* Footer */
+.about-footer {
+  text-align: center;
+  padding: 3rem 0;
+  background: #f5f0e6;
+  color: #8B6F47;
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title { font-size: 3.5rem; }
+  .intro-grid { grid-template-columns: 1fr; }
+  .image-placeholder { width: 250px; height: 250px; }
+}

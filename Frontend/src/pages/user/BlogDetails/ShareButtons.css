@@ -1,0 +1,105 @@
+/* src/User-Css/BlogDetails-css/ShareButtons.css */
+.share-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+  font-family: 'Georgia', serif;
+}
+
+.share-label {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #8B6F47;
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.share-icons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.share-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 3px 10px rgba(139, 111, 71, 0.2);
+}
+
+.share-icon:hover {
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 6px 15px rgba(139, 111, 71, 0.3);
+}
+
+.facebook { background: #1877f2; }
+.twitter { background: #1da1f2; }
+.whatsapp { background: #25d366; }
+
+.copy {
+  background: #C9B59C;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.copy.copied {
+  background: #6B5438;
+}
+
+.copied-tooltip {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #6B5438;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.copy.copied .copied-tooltip {
+  opacity: 1;
+  visibility: visible;
+  top: -40px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .share-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+
+  .share-label {
+    font-size: 0.9rem;
+  }
+
+  .share-icons {
+    order: -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .share-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+}

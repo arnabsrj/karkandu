@@ -1,0 +1,17 @@
+@import "tailwindcss";
+/* Quill Editor Styles */
+.ql-container {
+  min-height: 300px;
+  font-size: 1rem;
+}
+
+.ql-editor {
+  line-height: 1.6;
+}
+
+.ql-toolbar {
+  background: #f8f5f0;
+  border-top: 1px solid #e5d9c9;
+  border-left: 1px solid #e5d9c9;
+  border-right: 1px solid #e5d9c9;
+}

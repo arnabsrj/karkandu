@@ -1,0 +1,74 @@
+/* QuoteSection.css */
+.quote-section {
+  background-color: #EFE9E3;
+  padding: 6rem 2rem;
+  text-align: center;
+  font-family: 'Georgia', serif;
+  overflow: hidden;
+}
+
+.quote-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.spiritual-quote {
+  font-size: 2.1rem;
+  line-height: 1.6;
+  color: #8B6F47;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  position: relative;
+  min-height: 100px;
+}
+
+.quote-word {
+  display: inline-block;
+  opacity: 0;
+  animation: fadeInWord 0.6s ease-out forwards;
+}
+
+.quote-word:nth-child(odd) {
+  color: #C9B59C;
+}
+
+.cursor {
+  display: inline-block;
+  animation: blink 0.8s infinite;
+  color: #C9B59C;
+  font-weight: bold;
+}
+
+.quote-author {
+  font-size: 1.1rem;
+  color: #D9CFC7;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+/* Animations */
+@keyframes fadeInWord {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .spiritual-quote {
+    font-size: 1.6rem;
+  }
+  .quote-section {
+    padding: 4rem 1.5rem;
+  }
+}

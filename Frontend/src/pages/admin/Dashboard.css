@@ -1,0 +1,68 @@
+/* src/pages/admin/Dashboard.css */
+.admin-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(139, 111, 71, 0.1);
+  margin-bottom: 2rem;
+}
+
+.admin-page-title {
+  color: #8B6F47;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  position: relative;
+}
+
+.admin-page-title::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background: #C9B59C;
+  bottom: -10px;
+  left: 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+.stat-card {
+  background: #f8f4f0;
+  padding: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid #e5d9c9;
+}
+
+.stat-card h3 {
+  margin: 0 0 0.5rem;
+  color: #8B6F47;
+  font-size: 1rem;
+}
+
+.stat-number {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #6B5438;
+}
+
+.btn-primary {
+  background: #8B6F47;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.btn-primary:hover {
+  background: #6B5438;
+}

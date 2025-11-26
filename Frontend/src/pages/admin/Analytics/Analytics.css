@@ -1,0 +1,168 @@
+/* src/pages/admin/Analytics/Analytics.css */
+.analytics-page {
+  padding: 1.5rem;
+  background: #f5f0e6;
+  min-height: 100vh;
+}
+
+.admin-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(139, 111, 71, 0.12);
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.admin-page-title {
+  font-size: 1.8rem;
+  color: #8B6F47;
+  margin-bottom: 1rem;
+}
+
+p {
+  color: #a0896d;
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.summary-section h3, .blogs-analytics h3 {
+  font-size: 1.4rem;
+  color: #8B6F47;
+  margin-bottom: 1.5rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  background: #f8f5f0;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(139, 111, 71, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #C9B59C;
+}
+
+.stat-card h4 {
+  font-size: 1.8rem;
+  color: #8B6F47;
+  margin: 0 0 0.25rem;
+}
+
+.stat-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #a0896d;
+  font-style: normal;
+}
+
+.analytics-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 4px 15px rgba(139, 111, 71, 0.08);
+  margin-bottom: 2rem;
+}
+
+.analytics-table th, .analytics-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e5d9c9;
+  text-align: left;
+}
+
+.analytics-table th {
+  background: #f8f5f0;
+  color: #8B6F47;
+  font-weight: 600;
+}
+
+.analytics-table td {
+  color: #4a4a4a;
+}
+
+.blog-title {
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #8B6F47;
+  font-weight: 500;
+}
+
+.detail-btn {
+  background: #C9B59C;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.detail-btn:hover {
+  background: #b89f7a;
+}
+
+.blog-detail-section h3 {
+  font-size: 1.4rem;
+  color: #8B6F47;
+  margin-bottom: 1rem;
+}
+
+.detail-stats {
+  background: #f8f5f0;
+  padding: 1.5rem;
+  border-radius: 12px;
+  white-space: pre-wrap;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: #4a4a4a;
+  overflow-x: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .analytics-table {
+    font-size: 0.9rem;
+  }
+
+  .detail-stats {
+    font-size: 0.8rem;
+  }
+}
+
+
+
+/* Add to Analytics.css */
+.table-container {
+  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(139, 111, 71, 0.08);
+  margin-top: 1rem;
+}
+
+.no-data {
+  text-align: center;
+  padding: 3rem;
+  color: #a0896d;
+  font-style: italic;
+  font-size: 1.1rem;
+}

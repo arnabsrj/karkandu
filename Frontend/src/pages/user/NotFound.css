@@ -1,0 +1,218 @@
+/* src/User-Css/NotFound-css/NotFound.css */
+.notfound-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #EFE9E3 0%, #C9B59C 50%, #8B6F47 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Georgia', serif;
+}
+
+.notfound-container {
+  max-width: 600px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.notfound-content {
+  background: rgba(255, 255, 255, 0.92);
+  padding: 3rem 2.5rem;
+  border-radius: 24px;
+  box-shadow: 0 15px 40px rgba(139, 111, 71, 0.25);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(201, 181, 156, 0.3);
+}
+
+.error-code {
+  font-size: 6rem;
+  font-weight: 900;
+  margin: 0 0 0.5rem;
+  background: linear-gradient(45deg, #8B6F47, #C9B59C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 8px;
+}
+
+.error-title {
+  font-size: 2.2rem;
+  color: #8B6F47;
+  margin: 0 0 1.2rem;
+  font-weight: 700;
+}
+
+.error-message {
+  font-size: 1.1rem;
+  color: #6b5438;
+  line-height: 1.7;
+  margin: 0 0 2.5rem;
+  font-style: italic;
+}
+
+.notfound-actions {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.home-btn,
+.explore-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.8rem;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 15px rgba(139, 111, 71, 0.2);
+}
+
+.home-btn {
+  background: #8B6F47;
+  color: white;
+}
+
+.home-btn:hover {
+  background: #6B5438;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(139, 111, 71, 0.3);
+}
+
+.explore-btn {
+  background: #C9B59C;
+  color: white;
+}
+
+.explore-btn:hover {
+  background: #b89f7a;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(201, 181, 156, 0.3);
+}
+
+.notfound-footer {
+  margin-top: 2rem;
+}
+
+.notfound-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #a0896d;
+  font-style: italic;
+}
+
+.heart-icon {
+  color: #e53e3e;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Lotus & Petals */
+.notfound-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.lotus-flower {
+  position: absolute;
+  bottom: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(201, 181, 156, 0.15) 0%, transparent 70%);
+  border-radius: 50% 50% 0 0;
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-petal {
+  position: absolute;
+  width: 20px;
+  height: 30px;
+  background: #C9B59C;
+  border-radius: 50% 0;
+  opacity: 0.7;
+  animation: drift 8s linear infinite;
+}
+
+.petal-1 {
+  top: 20%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.petal-2 {
+  top: 40%;
+  right: 20%;
+  animation-delay: 2s;
+  background: #EFE9E3;
+}
+
+.petal-3 {
+  bottom: 30%;
+  left: 25%;
+  animation-delay: 4s;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-20px); }
+}
+
+@keyframes drift {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .error-code {
+    font-size: 4.5rem;
+    letter-spacing: 4px;
+  }
+  .error-title {
+    font-size: 1.8rem;
+  }
+  .notfound-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  .home-btn,
+  .explore-btn {
+    width: 80%;
+    justify-content: center;
+  }
+  .lotus-flower {
+    width: 200px;
+    height: 200px;
+  }
+}

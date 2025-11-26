@@ -1,0 +1,321 @@
+/* Navbar.css - Fully Responsive with Slide-In Menu */
+
+/* Existing styles remain... keep all your beautiful colors and fonts */
+.navbar {
+  background-color: #EFE9E3;
+  box-shadow: 0 2px 10px rgba(201, 181, 156, 0.15);
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+/* Logo */
+.navbar-logo {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.logo-link:hover .navbar-logo {
+  transform: scale(1.05);
+}
+
+/* Hamburger Button (Mobile Only) */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #8B6F47;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+}
+
+/* Desktop Menu */
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.nav-link {
+  color: #8B6F47;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -6px;
+  left: 0;
+  background-color: #C9B59C;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #C9B59C;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Auth Links */
+.navbar-auth {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.auth-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #8B6F47;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.auth-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -6px;
+  left: 0;
+  background-color: #C9B59C;
+  transition: width 0.35s ease;
+}
+
+.auth-link:hover {
+  color: #C9B59C;
+}
+
+.auth-link:hover::after {
+  width: 100%;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.logout-btn:hover {
+  color: #d69e2e;
+}
+
+/* Notification Badge */
+.notification-wrapper {
+  position: relative;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #b19266;
+  color: white;
+  font-size: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+/* ────────────────────────────────
+   ULTRA-SMOOTH CINEMATIC MOBILE MENU
+   (Matches your sacred earthy palette perfectly)
+   ──────────────────────────────── */
+/* ────────────────────────────────
+   CLEAN, SHARP, SINGLE-COLUMN MOBILE MENU
+   Zero blur | Earthy tones | Ultra smooth | Professional
+   ──────────────────────────────── */
+@media (max-width: 868px) {
+  .mobile-menu-toggle {
+    display: block;
+    background: transparent;
+    border: none;
+    color: #8B6F47;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.4s ease;
+  }
+
+  .mobile-menu-toggle:hover {
+    background: rgba(201, 181 181, 156, 0.2);
+    transform: scale(1.1);
+  }
+
+  /* Mobile Menu Panel - Clean & Sharp */
+  .navbar-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background-color: #EFE9E3;
+    box-shadow: -6px 0 20px rgba(139, 111, 71, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+    transition: right 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    overflow-y: auto;
+  }
+
+  .navbar-menu.active {
+    right: 0;
+  }
+
+  /* Single column: Links + Auth one below another */
+  .navbar-links,
+  .navbar-auth {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Golden divider line */
+  .navbar-links::after {
+    content: '';
+    width: 80px;
+    height: 2px;
+    background: #C9B59C;
+    margin: 1.5rem 0;
+    border-radius: 2px;
+  }
+
+  /* Clean, sharp, touch-friendly links */
+  .nav-link,
+  .auth-link,
+  .logout-btn {
+    width: 80%;
+    text-align: center;
+    padding: 1rem 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #6B5533;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.4s ease;
+    background: transparent;
+  }
+
+  .nav-link:hover,
+  .auth-link:hover,
+  .logout-btn:hover {
+    background: rgba(201, 181, 156, 0.25);
+    color: #5a451f;
+    transform: translateY(-2px);
+  }
+
+  /* Icons in mobile */
+  .auth-link,
+  .logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .auth-text {
+    font-size: 1.1rem;
+  }
+
+  /* Notification badge - sharp */
+  .notification-badge {
+    top: -8px;
+    right: -8px;
+    background: #b19266;
+    color: white;
+    font-size: 11px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Clean overlay - NO BLUR, just soft tint */
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(239, 233, 227, 0.7);   /* Warm earthy tint */
+    z-index: 999;
+    backdrop-filter: none !important;      /* ZERO BLUR */
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+  .navbar-menu {
+    width: 100vw;
+    padding-top: 90px;
+  }
+  .nav-link, .auth-link, .logout-btn {
+    width: 90%;
+    font-size: 1.2rem;
+    padding: 1.1rem;
+  }
+}
+
+
+/* Navbar.css */
+/* .login-only {
+  background: linear-gradient(135deg, #8B6F47, #a58963);
+  color: white !important;
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  font-weight: 600;
+}
+
+.login-only:hover {
+  background: #7a5f3a;
+  transform: translateY(-2px);
+} */
