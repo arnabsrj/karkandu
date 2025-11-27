@@ -28,7 +28,8 @@ const AdminLogin = () => {
       // --- DEBUGGING END ---
         if (tokenToSave) {
         // ✅ FIX: Save the correctly extracted token
-        localStorage.setItem('token', res.data.token || tokenToSave);
+      // RIGHT: Use the variable you already calculated correctly
+localStorage.setItem('token', tokenToSave);
 
       navigate('/admin');
       } else {
