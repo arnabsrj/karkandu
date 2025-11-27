@@ -37,19 +37,41 @@ app.use(cookieParser());
 //   })
 // );
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://karkandu-frontend.vercel.app",
+  "https://karkandu-frontend-git-main-varnabs-projects.vercel.app",
+  "https://karkandu.com",
+  "https://www.karkandu.com"
+];
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://karkandu-frontend.vercel.app",
-      "https://karkandu-frontend-22hxg2nj3-varnabs-projects.vercel.app"
-    ],
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization", "x-auth-token"],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization", "x-auth-token"],
+  credentials: true,
+}));
+
+
+// app.use(
+//   cors({
+//     origin: [
+//       "http://localhost:5173",
+//       "https://karkandu-frontend.vercel.app",
+//       "https://karkandu-frontend-22hxg2nj3-varnabs-projects.vercel.app"
+//     ],
+//     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+//     allowedHeaders: ["Content-Type", "Authorization", "x-auth-token"],
+//     credentials: true,
+//   })
+// );
 
 
 app.use(
