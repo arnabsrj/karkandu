@@ -29,18 +29,35 @@ const app = express();
 // === Security & Logging ===
 app.use(cookieParser());
 
-app.use(  
-  cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3000',
-    credentials: true, // Allow cookies
-  })
-);
+// app.use(  
+//   cors({
+//     origin: process.env.CLIENT_URL,
+//     // || 'http://localhost:3000
+//     credentials: true, // Allow cookies
+//   })
+// );
+
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: [
+      "http://localhost:5173",
+      "https://karkandu-frontend.vercel.app",
+      "https://karkandu-frontend-22hxg2nj3-varnabs-projects.vercel.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
+
+
+
+// app.use(
+//   cors({
+//     origin: process.env.CLIENT_URL || 'http://localhost:5173',
+//     credentials: true,
+//   })
+// );
 app.use(
   helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" },
