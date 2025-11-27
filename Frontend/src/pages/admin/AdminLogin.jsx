@@ -2,27 +2,27 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../components/common/Loader.jsx';
-import { adminLogin } from '../../services/adminService.js'; // [FIX] Import directly
-import './AdminLogin.css';
+import { useAuth } from '../../context/AuthContext.jsx'; // ADD THIS IMPORT IF MISSING
 
 const AdminLogin = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth(); // ADD THIS TO GET login FROM CONTEXT
 
- const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      // Use context login for admin
-      const response = await login(form, true); // true for isAdminLogin
-      console.log("LOGIN RESPONSE:", response); // For debugging
-
-      // No need to manually save token—context does it
-      navigate('/admin/dashboard'); // Use navigate instead of window.location for no full reload (faster)
+      console.log("STARTING LOGIN WITH CREDS:", form); // DEBUG: Confirm creds
+      const response = await login(form, true); // true for admin
+      console.log("LOGIN RESPONSE:", response); // DEBUG: Should show full {success, message, data: {token, admin}}
+      
+      // Context already saves token at res.data.data.token and sets state
+      navigate('/admin/dashboard'); // Redirect (no full reload needed)
     } catch (err) {
-      console.error("LOGIN ERROR:", err);
-      const msg = err.response?.data?.message || 'Admin login failed';
+      console.error("LOGIN ERROR:", err); // This is what you're seeing now
+      const msg = err?.response?.data?.message || 'Admin login failed - check creds or network';
       alert(msg);
     } finally {
       setLoading(false);
