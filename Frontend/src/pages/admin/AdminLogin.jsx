@@ -8,8 +8,8 @@ const AdminLogin = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth(); // ADD THIS TO GET login FROM CONTEXT
-
+  const { login, getMe } = useAuth(); // ADD THIS TO GET login FROM CONTEXT
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -17,9 +17,9 @@ const AdminLogin = () => {
       console.log("STARTING LOGIN WITH CREDS:", form); // DEBUG: Confirm creds
       const response = await login(form, true); // true for admin
       console.log("LOGIN RESPONSE:", response); // DEBUG: Should show full {success, message, data: {token, admin}}
-      
+      await getMe();
       // Context already saves token at res.data.data.token and sets state
-      navigate('/admin/dashboard'); // Redirect (no full reload needed)
+      navigate('/admin'); // Redirect (no full reload needed)
     } catch (err) {
       console.error("LOGIN ERROR:", err); // This is what you're seeing now
       const msg = err?.response?.data?.message || 'Admin login failed - check creds or network';
