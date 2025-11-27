@@ -17,6 +17,12 @@ const verifyToken = (token) => {
 const auth = (requiredRole = null) => {
   return async (req, res, next) => {
     try {
+      // --- DEBUG LOGS START ---
+      console.log("--- AUTH DEBUG ---");
+      console.log("Headers:", req.headers); 
+      console.log("Cookies:", req.cookies);
+      // --- DEBUG LOGS END ---
+      
     let token = 
         req.cookies?.token || 
         req.header('x-auth-token') || 
@@ -42,7 +48,7 @@ const auth = (requiredRole = null) => {
         });
       }
 
-      
+
 
       // Attach user/admin to request
       let user = null;
