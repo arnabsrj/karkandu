@@ -17,7 +17,15 @@ const verifyToken = (token) => {
 const auth = (requiredRole = null) => {
   return async (req, res, next) => {
     try {
-      const token = req.cookies?.token || req.header('x-auth-token');
+    let token = 
+        req.cookies?.token || 
+        req.header('x-auth-token') || 
+        req.header('Authorization')?.replace('Bearer ', '');
+
+        if (!token && req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+        token = req.headers.authorization.split(' ')[1];
+      }
+
 
       if (!token) {
         return res.status(401).json({
@@ -33,6 +41,8 @@ const auth = (requiredRole = null) => {
           message: 'Token is not valid',
         });
       }
+
+      
 
       // Attach user/admin to request
       let user = null;
