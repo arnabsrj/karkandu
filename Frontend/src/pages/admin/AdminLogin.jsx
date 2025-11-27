@@ -16,7 +16,13 @@ const AdminLogin = () => {
     setLoading(true);
     try {
       const res = await login(form, true); // true = admin login
-       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('token', res.data.token);
+      // --- DEBUGGING START ---
+      console.log("LOGIN RESPONSE:", res); 
+      // Check if the token is actually at res.data.token or just res.token
+      const tokenToSave = res.data?.token || res.token || res.data?.data?.token; 
+      console.log("SAVING TOKEN:", tokenToSave);
+      // --- DEBUGGING END ---
       navigate('/admin');
     } catch (err) {
         alert(err.response?.data?.message || 'Admin login failed');
