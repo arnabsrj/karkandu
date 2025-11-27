@@ -15,10 +15,11 @@ const AdminLogin = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await login(form, true); // true = admin login
+      const res = await login(form, true); // true = admin login
+       localStorage.setItem('token', res.data.token);
       navigate('/admin');
     } catch (err) {
-      alert('Admin login failed');
+        alert(err.response?.data?.message || 'Admin login failed');
     } finally {
       setLoading(false);
     }
