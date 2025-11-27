@@ -16,14 +16,25 @@ const AdminLogin = () => {
     setLoading(true);
     try {
       const res = await login(form, true); // true = admin login
-      localStorage.setItem('token', res.data.token);
+      // localStorage.setItem('token', res.data.token);
+
+
       // --- DEBUGGING START ---
       console.log("LOGIN RESPONSE:", res); 
-      // Check if the token is actually at res.data.token or just res.token
-      const tokenToSave = res.data?.token || res.token || res.data?.data?.token; 
+     // Correctly extract the token. 
+    // Since adminService returns res.data, the token is likely just 'res.token'
+    const tokenToSave = res.token || res.data?.token;
       console.log("SAVING TOKEN:", tokenToSave);
       // --- DEBUGGING END ---
+        if (tokenToSave) {
+        // ✅ FIX: Save the correctly extracted token
+        localStorage.setItem('token', tokenToSave);
+
       navigate('/admin');
+      } else {
+        alert("Login successful but no token found!");
+    }
+
     } catch (err) {
         alert(err.response?.data?.message || 'Admin login failed');
     } finally {
