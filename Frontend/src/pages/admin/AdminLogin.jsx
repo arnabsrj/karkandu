@@ -10,34 +10,20 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      // [FIX] Call the service directly. This GUARANTEES we get the data.
-      // adminService.js returns 'res.data', so 'response' here IS the data object.
-      const response = await adminLogin(form); 
+      // Use context login for admin
+      const response = await login(form, true); // true for isAdminLogin
+      console.log("LOGIN RESPONSE:", response); // For debugging
 
-      console.log("DIRECT API RESPONSE:", response); 
-
-      // Extract token (handle both structures just in case)
-      const token = response.token || response.data?.token;
-
-      if (token) {
-        console.log("SAVING TOKEN:", token);
-        // 1. Save Token
-        localStorage.setItem('token', token);
-        
-        // 2. Hard Redirect to force the App to reload and pick up the token
-        window.location.href = '/admin/dashboard';
-      } else {
-        alert("Login successful, but Server sent no token!");
-      }
-
+      // No need to manually save token—context does it
+      navigate('/admin/dashboard'); // Use navigate instead of window.location for no full reload (faster)
     } catch (err) {
-        console.error("LOGIN ERROR:", err);
-        const msg = err.response?.data?.message || 'Admin login failed';
-        alert(msg);
+      console.error("LOGIN ERROR:", err);
+      const msg = err.response?.data?.message || 'Admin login failed';
+      alert(msg);
     } finally {
       setLoading(false);
     }
