@@ -49,13 +49,20 @@ export const AuthProvider = ({ children }) => {
     const endpoint = isAdminLogin ? '/admin/login' : '/user/login';
     const res = await api.post(endpoint, credentials);
 
+     // 2️⃣ Save token to localStorage
+  if (res.data && res.data.data?.token) {
+    localStorage.setItem('token', res.data.data.token);
+  } else {
+    throw new Error('Token missing from login response');
+  }
+
     // Fetch role-specific profile
     const profileRes = await api.get(isAdminLogin ? '/admin/profile' : '/user/profile');
     const userData = profileRes.data.data;
 
     setUser(userData);
     setIsAuthenticated(true);
-    setIsAdmin(isAdminLogin);
+    setIsAdmin(isAdminLogin); 
 
     return res.data;
   };
