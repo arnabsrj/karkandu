@@ -2,27 +2,25 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../components/common/Loader.jsx';
-import { useAuth } from '../../context/AuthContext.jsx'; // ADD THIS IMPORT IF MISSING
+import { useAuth } from '../../context/AuthContext.jsx';
+import './AdminLogin.css';               // ← CSS IMPORT ADDED BACK
 
 const AdminLogin = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login, getMe } = useAuth(); // ADD THIS TO GET login FROM CONTEXT
- 
+  const { login, getMe } = useAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      console.log("STARTING LOGIN WITH CREDS:", form); // DEBUG: Confirm creds
-      const response = await login(form, true); // true for admin
-      console.log("LOGIN RESPONSE:", response); // DEBUG: Should show full {success, message, data: {token, admin}}
-      await getMe();
-      // Context already saves token at res.data.data.token and sets state
-      navigate('/admin'); // Redirect (no full reload needed)
+      await login(form, true);   // true = admin login
+      await getMe();             // refresh auth state with the new token
+      navigate('/admin');        // or '/admin/dashboard' – whatever your route is
     } catch (err) {
-      console.error("LOGIN ERROR:", err); // This is what you're seeing now
-      const msg = err?.response?.data?.message || 'Admin login failed - check creds or network';
+      console.error("LOGIN ERROR:", err);
+      const msg = err?.response?.data?.message || 'Admin login failed';
       alert(msg);
     } finally {
       setLoading(false);
