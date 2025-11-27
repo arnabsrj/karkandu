@@ -1,43 +1,43 @@
 // src/pages/admin/AdminLogin.jsx
 import React, { useState } from 'react';
-import { useAuth } from '../../context/AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../components/common/Loader.jsx';
+import { adminLogin } from '../../services/adminService.js'; // [FIX] Import directly
 import './AdminLogin.css';
 
 const AdminLogin = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await login(form, true); // true = admin login
-      // localStorage.setItem('token', res.data.token);
+      // [FIX] Call the service directly. This GUARANTEES we get the data.
+      // adminService.js returns 'res.data', so 'response' here IS the data object.
+      const response = await adminLogin(form); 
 
+      console.log("DIRECT API RESPONSE:", response); 
 
-      // --- DEBUGGING START ---
-      console.log("LOGIN RESPONSE:", res); 
-     // Correctly extract the token. 
-    // Since adminService returns res.data, the token is likely just 'res.token'
-    const tokenToSave = res.token || res.data?.token;
-      console.log("SAVING TOKEN:", tokenToSave);
-      // --- DEBUGGING END ---
-        if (tokenToSave) {
-        // ✅ FIX: Save the correctly extracted token
-      // RIGHT: Use the variable you already calculated correctly
-localStorage.setItem('token', tokenToSave);
+      // Extract token (handle both structures just in case)
+      const token = response.token || response.data?.token;
 
-      navigate('/admin');
+      if (token) {
+        console.log("SAVING TOKEN:", token);
+        // 1. Save Token
+        localStorage.setItem('token', token);
+        
+        // 2. Hard Redirect to force the App to reload and pick up the token
+        window.location.href = '/admin/dashboard';
       } else {
-        alert("Login successful but no token found!");
-    }
+        alert("Login successful, but Server sent no token!");
+      }
 
     } catch (err) {
-        alert(err.response?.data?.message || 'Admin login failed');
+        console.error("LOGIN ERROR:", err);
+        const msg = err.response?.data?.message || 'Admin login failed';
+        alert(msg);
     } finally {
       setLoading(false);
     }
