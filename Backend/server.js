@@ -29,12 +29,12 @@ const app = express();
 // === Security & Logging ===
 app.use(cookieParser());
 
-// app.use(
-//   cors({
-//     origin: process.env.CLIENT_URL || 'http://localhost:3000',
-//     credentials: true, // Allow cookies
-//   })
-// );
+app.use(  
+  cors({
+    origin: process.env.CLIENT_URL || 'http://localhost:3000',
+    credentials: true, // Allow cookies
+  })
+);
 app.use(
   cors({
     origin: process.env.CLIENT_URL || 'http://localhost:5173',
