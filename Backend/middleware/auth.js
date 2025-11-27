@@ -84,7 +84,11 @@ const auth = (requiredRole = null) => {
  */
 export const optionalAuth = async (req, res, next) => {
   try {
-    const token = req.cookies?.token || req.header('x-auth-token');
+   const token =
+  req.cookies?.token ||                  // Optional: cookie token
+  req.header('x-auth-token') ||          // Optional: old header
+  req.header('Authorization')?.split(' ')[1]; // Bearer token
+
 
     // If no token, proceed as Guest (req.user remains undefined)
     if (!token) {

@@ -45,7 +45,8 @@ app.use(
       "https://karkandu-frontend.vercel.app",
       "https://karkandu-frontend-22hxg2nj3-varnabs-projects.vercel.app"
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"], // <-- important
     credentials: true,
   })
 );
