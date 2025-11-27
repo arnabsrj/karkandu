@@ -79,10 +79,8 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-// app.listen(PORT, () => {
-//   console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode`.yellow);
-//   console.log(`API: http://localhost:${PORT}`.cyan);
-//   console.log(`Health: http://localhost:${PORT}/`.green);
-// });
-
-export default app;
+app.listen(PORT, () => {
+  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode`.yellow);
+  console.log(`API: http://localhost:${PORT}`.cyan);
+  console.log(`Health: http://localhost:${PORT}/`.green);
+});
